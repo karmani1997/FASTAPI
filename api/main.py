@@ -24,6 +24,17 @@ def read_root():
 def getCourses():
     return fakedb
 
-@app.get("courses/{course_id}")
+@app.get("/courses/{course_id}")
 def getACourse(course_id: int):
-    course = 
+    course = course_id -1
+    return fakedb[course]
+
+@app.post("/courses")
+def add_course(course: Course):
+    fakedb.append(course.dict())
+    return fakedb[-1]
+
+@app.delete("/courses/{course_id}")
+def delete_course(course_id: int):
+    fakedb.pop(course_id-1)
+    return {"task": "deletion successful"}
